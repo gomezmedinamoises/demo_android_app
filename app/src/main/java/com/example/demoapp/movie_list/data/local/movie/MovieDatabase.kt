@@ -8,6 +8,13 @@ import androidx.room.RoomDatabase
 /**
  * @author Moises David Gomez Medina
  */
+
+/**
+ * Database to handle entities such as [MovieEntity]. Also, defines the database version and schema exportation.
+ * Extends from [RoomDatabase].
+ *
+ * @property movieDao Provide access to the database to handle multiple operations.
+ */
 @Database(
     entities = [MovieEntity::class],
     version = 3,

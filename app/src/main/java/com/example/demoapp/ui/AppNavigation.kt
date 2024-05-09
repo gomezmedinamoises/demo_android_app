@@ -13,6 +13,13 @@ import com.example.demoapp.movie_list.utils.Screen
 /**
  * @author Moises David Gomez Medina
  */
+
+/**
+ * Sets up the navigation graph for the app using Jetpack Compose Navigation.
+ * This function defines all the navigation routes and associated screens.
+ *
+ * @Composable indicates that this function is a composable and can be used to compose UI.
+ */
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()

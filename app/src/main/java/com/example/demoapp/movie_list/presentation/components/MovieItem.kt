@@ -41,7 +41,6 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.example.demoapp.movie_list.data.remote.MovieApi
 import com.example.demoapp.movie_list.domain.model.Movie
-import com.example.demoapp.movie_list.utils.RatingBar
 import com.example.demoapp.movie_list.utils.Screen
 import com.example.demoapp.movie_list.utils.getAverageColor
 import com.example.demoapp.ui.MovieFontSize
@@ -52,6 +51,14 @@ import com.example.demoapp.ui.MovieSpacerValues
 
 /**
  * @author Moises David Gomez Medina
+ */
+
+/**
+ * Composable function that displays a movie item within a column layout.
+ * It presents movie details including an image, title and a rating bar.
+ *
+ * @param movie Instance of [Movie] containing movie details.
+ * @param navHostController A [NavHostController] to manage navigation events.
  */
 @Composable
 fun MovieItem(
@@ -158,7 +165,5 @@ fun MovieItem(
                 maxLines = 1
             )
         }
-
     }
-
 }

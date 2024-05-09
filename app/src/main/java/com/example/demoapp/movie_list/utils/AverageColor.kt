@@ -17,6 +17,14 @@ import androidx.core.graphics.ColorUtils
  * @author Moises David Gomez Medina
  */
 
+/**
+ * Calculates the average color of an image and darkens it.
+ * This function takes an [ImageBitmap] and calculates its average RGB color.
+ * The resulting color is then darkened by reducing the lightness component in the HSL color space.
+ *
+ * @param imageBitmap The image from which the average color will be calculated.
+ * @return [Color] The darkened average color.
+ */
 @Composable
 fun getAverageColor(imageBitmap: ImageBitmap): Color {
     var averageColor by remember { mutableStateOf(Color.Transparent) }

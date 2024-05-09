@@ -1,4 +1,4 @@
-package com.example.demoapp.movie_list.utils
+package com.example.demoapp.movie_list.presentation.components
 
 import android.widget.RatingBar
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,17 @@ import androidx.compose.ui.graphics.Color
 /**
  * @author Moises David Gomez Medina
  */
- 
+
+/**
+ * A custom rating bar implemented using Jetpack Compose.
+ * Displays filled, half-filled, and outlined stars based on the rating provided.
+ *
+ * @param modifier [Modifier] applied to the row that contains the stars.
+ * @param starsModifier [Modifier] applied to each individual star icon.
+ * @param rating The numeric rating to display, where each whole number represents one full star.
+ * @param stars The total number of stars to display in the rating bar.
+ * @param starsColor The [Color] to be applied to the star icons.
+ */
 @Composable
 fun RatingBar(
     modifier: Modifier = Modifier,

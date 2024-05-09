@@ -8,6 +8,12 @@ import com.example.demoapp.movie_list.domain.model.Movie
  * @author Moises David Gomez Medina
  */
 
+/**
+ * Converts a [MovieDto] into a [MovieEntity].
+ *
+ * @param category Movie's category that will be assigned to [MovieEntity]
+ * @return Returns a [MovieEntity]
+ */
 fun MovieDto.toMovieEntity(
     category: String
 ): MovieEntity {
@@ -36,6 +42,12 @@ fun MovieDto.toMovieEntity(
     )
 }
 
+/**
+ * Converts a [MovieEntity] into a [Movie].
+ *
+ * @param category Movie's category that will be assigned to [Movie]
+ * @return Returns a [Movie]
+ */
 fun MovieEntity.toMovie(
     category: String
 ): Movie {

@@ -16,6 +16,14 @@ import javax.inject.Inject
 /**
  * @author Moises David Gomez Medina
  */
+
+/**
+ * [ViewModel] for managing the UI state of movie details.
+ * This ViewModel uses Hilt for dependency injection to obtain a repository and a [SavedStateHandle] for retaining state.
+ *
+ * @param movieListRepository Repository to fetch movie data.
+ * @param savedStateHandle Handle that holds state survivable across process deaths.
+ */
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     private val movieListRepository: MovieListRepository,
@@ -30,7 +38,12 @@ class MovieDetailsViewModel @Inject constructor(
     init {
         getMovie(movieId ?: -1)
     }
-
+    /**
+     * Fetch the details for a movie.
+     * Updates the UI state based on the result of the operation.
+     *
+     * @param id The ID of the movie to fetch.
+     */
     private fun getMovie(id: Int) {
         viewModelScope.launch {
             _detailsState.update {

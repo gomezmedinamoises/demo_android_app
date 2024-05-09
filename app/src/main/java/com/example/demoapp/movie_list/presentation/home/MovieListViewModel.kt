@@ -2,6 +2,7 @@ package com.example.demoapp.movie_list.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.demoapp.movie_list.domain.model.Movie
 import com.example.demoapp.movie_list.domain.repository.MovieListRepository
 import com.example.demoapp.movie_list.utils.Category
 import com.example.demoapp.movie_list.utils.Resource
@@ -16,6 +17,13 @@ import javax.inject.Inject
 /**
  * @author Moises David Gomez Medina
  */
+
+/**
+ * [ViewModel] for managing the UI-related data concerning movie lists.
+ * This ViewModel is injected with a repository to fetch movie data.
+ *
+ * @property movieListRepository The repository responsible to handle movie data operations.
+ */
 @HiltViewModel
 class MovieListViewModel @Inject constructor(
     private val movieListRepository: MovieListRepository
@@ -29,6 +37,11 @@ class MovieListViewModel @Inject constructor(
         getUpcomingMovieList(false)
     }
 
+    /**
+     * Handles various UI events related to movie lists.
+     *
+     * @param event The event to handle.
+     */
     fun onEvent(event: MovieListUiEvent) {
         when(event) {
             MovieListUiEvent.Navigate -> {
@@ -59,30 +72,7 @@ class MovieListViewModel @Inject constructor(
                 Category.POPULAR,
                 movieListState.value.popularMovieListPage
             ).collectLatest { result ->
-                when(result) {
-                    is Resource.Success -> {
-                        result.data?.let { popularList ->
-                            _movieListState.update {
-                                it.copy(
-                                    popularMovieList = movieListState.value.popularMovieList
-                                    + popularList.shuffled(),
-                                    popularMovieListPage = movieListState.value.popularMovieListPage + 1
-                                )
-                            }
-                        }
-                    }
-                    is Resource.Loading -> {
-                        _movieListState.update {
-                            it.copy(isLoading = result.isLoading)
-                        }
-                    }
-                    is Resource.Error -> {
-                        _movieListState.update {
-                            it.copy(isLoading = false)
-                        }
-                    }
-
-                }
+                handleResult(result, isPopular = true)
             }
         }
     }
@@ -98,30 +88,36 @@ class MovieListViewModel @Inject constructor(
                 Category.UPCOMING,
                 movieListState.value.upcomingMovieListPage
             ).collectLatest { result ->
-                when(result) {
-                    is Resource.Success -> {
-                        result.data?.let { upcomingList ->
-                            _movieListState.update {
-                                it.copy(
-                                    upcomingMovieList = movieListState.value.upcomingMovieList
-                                            + upcomingList.shuffled(),
-                                    upcomingMovieListPage = movieListState.value.upcomingMovieListPage + 1
-                                )
-                            }
-                        }
-                    }
-                    is Resource.Loading -> {
-                        _movieListState.update {
-                            it.copy(isLoading = result.isLoading)
-                        }
-                    }
-                    is Resource.Error -> {
-                        _movieListState.update {
-                            it.copy(isLoading = false)
-                        }
-                    }
+                handleResult(result, isPopular = false)
+            }
+        }
+    }
 
+    /**
+     * Handles the result of the movie list fetch operation.
+     *
+     * @param result The result of the fetch operation.
+     * @param isPopular Indicates if the list is popular movies (true) or upcoming movies (false).
+     */
+    private fun handleResult(result: Resource<List<Movie>>, isPopular: Boolean) {
+        when (result) {
+            is Resource.Success -> {
+                result.data?.let { list ->
+                    _movieListState.update {
+                        it.copy(
+                            popularMovieList = if (isPopular) it.popularMovieList + list.shuffled() else it.popularMovieList,
+                            upcomingMovieList = if (!isPopular) it.upcomingMovieList + list.shuffled() else it.upcomingMovieList,
+                            popularMovieListPage = if (isPopular) it.popularMovieListPage + 1 else it.popularMovieListPage,
+                            upcomingMovieListPage = if (!isPopular) it.upcomingMovieListPage + 1 else it.upcomingMovieListPage
+                        )
+                    }
                 }
+            }
+            is Resource.Loading -> {
+                _movieListState.update { it.copy(isLoading = result.isLoading) }
+            }
+            is Resource.Error -> {
+                _movieListState.update { it.copy(isLoading = false) }
             }
         }
     }

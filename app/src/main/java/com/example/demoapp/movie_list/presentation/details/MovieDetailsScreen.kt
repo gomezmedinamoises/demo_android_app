@@ -44,7 +44,7 @@ import coil.request.ImageRequest
 import coil.size.Size
 import com.example.demoapp.R
 import com.example.demoapp.movie_list.data.remote.MovieApi
-import com.example.demoapp.movie_list.utils.RatingBar
+import com.example.demoapp.movie_list.presentation.components.RatingBar
 import com.example.demoapp.ui.MovieFontSize
 import com.example.demoapp.ui.MovieIconSize
 import com.example.demoapp.ui.MoviePaddingValues

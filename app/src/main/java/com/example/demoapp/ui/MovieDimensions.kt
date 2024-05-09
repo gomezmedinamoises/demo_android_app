@@ -36,5 +36,4 @@ object MovieSpacerValues {
     val small = 12.dp
     val medium = 16.dp
     val large = 32.dp
-
 }

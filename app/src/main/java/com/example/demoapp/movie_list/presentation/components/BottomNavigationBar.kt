@@ -25,6 +25,12 @@ import com.example.demoapp.movie_list.utils.Screen
  * @author Moises David Gomez Medina
  */
 
+/**
+ * Composable function that displays a bottom navigation bar for navigating between different screens.
+ *
+ * @param bottomNavController Navigation controller for handling navigation events.
+ * @param onEvent Callback function to handle navigation events triggered by user interaction.
+ */
 @Composable
 fun BottomNavigationBar(
     bottomNavController: NavHostController,
@@ -86,6 +92,12 @@ fun BottomNavigationBar(
     }
 }
 
+/**
+ * Data class for items in the bottom navigation bar.
+ *
+ * @property title Title of the navigation item.
+ * @property icon Icon displayed for the navigation item.
+ */
 data class BottomItem(
     val title: String,
     val icon: ImageVector

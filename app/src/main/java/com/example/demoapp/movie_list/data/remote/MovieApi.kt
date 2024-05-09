@@ -9,8 +9,21 @@ import retrofit2.http.Query
  * @author Moises David Gomez Medina
  */
 
+/**
+ * Defines the endpoints to fetch data from API.
+ * Provides methods to fetch a list of movies by category.
+ */
 interface MovieApi {
 
+    /**
+     * Fetch a list of movies by category.
+     *
+     * @param category Category of the movie to fetch. Example: popular or upcoming.
+     * @param page Number of page's results to fetch.
+     * @param apiKey Key used to validate the HTTP request.
+     *
+     * @return A [MovieListDto] according the [category] and [page] provided.
+     */
     @GET("movie/{category}")
     suspend fun getMovieList(
         @Path("category") category: String,

@@ -6,18 +6,18 @@ package com.example.demoapp.movie_list.domain.model
 
 data class Movie(
     val adult: Boolean?,
-    val backdrop_path: String?,
+    val backdropPath: String?,
     val category: String,
-    val genre_ids: List<Int>,
+    val genreIds: List<Int>,
     val id: Int?,
-    val original_language: String,
-    val original_title: String?,
+    val originalLanguage: String,
+    val originalTitle: String?,
     val overview: String,
     val popularity: Double?,
-    val poster_path: String?,
-    val release_date: String?,
+    val posterPath: String?,
+    val releaseDate: String?,
     val title: String,
     val video: Boolean?,
-    val vote_average: Double,
-    val vote_count: Int?
+    val voteAverage: Double,
+    val voteCount: Int?
 )

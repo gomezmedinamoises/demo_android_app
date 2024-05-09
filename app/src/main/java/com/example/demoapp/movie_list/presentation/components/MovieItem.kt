@@ -67,7 +67,7 @@ fun MovieItem(
 ) {
     val imageState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(MovieApi.IMAGE_BASE_URL + movie.backdrop_path)
+            .data(MovieApi.IMAGE_BASE_URL + movie.backdropPath)
             .size(Size.ORIGINAL)
             .build()
     ).state
@@ -154,12 +154,12 @@ fun MovieItem(
         ) {
             RatingBar(
                 starsModifier = Modifier.size(18.dp),
-                rating = movie.vote_average / 2
+                rating = movie.voteAverage / 2
             )
 
             Text(
                 modifier = Modifier.padding(MoviePaddingValues.xSmall),
-                text = movie.vote_average.toString().take(3),
+                text = movie.voteAverage.toString().take(3),
                 color = Color.LightGray,
                 fontSize = MovieFontSize.medium,
                 maxLines = 1

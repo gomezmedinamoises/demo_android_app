@@ -65,14 +65,14 @@ fun MovieDetailsScreen(
 
     val backDropImageState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(MovieApi.IMAGE_BASE_URL + detailsState.movie?.backdrop_path)
+            .data(MovieApi.IMAGE_BASE_URL + detailsState.movie?.backdropPath)
             .size(Size.ORIGINAL)
             .build()
     ).state
 
     val posterImageState = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(MovieApi.IMAGE_BASE_URL + detailsState.movie?.poster_path)
+            .data(MovieApi.IMAGE_BASE_URL + detailsState.movie?.posterPath)
             .size(Size.ORIGINAL)
             .build()
     ).state
@@ -184,12 +184,12 @@ fun MovieDetailsScreen(
                             ) {
                                 RatingBar(
                                     starsModifier = Modifier.size(MoviePaddingValues.xLarge),
-                                    rating = movie.vote_average / 2
+                                    rating = movie.voteAverage / 2
                                 )
 
                                 Text(
                                     modifier = Modifier.padding(start = MoviePaddingValues.xSmall),
-                                    text = movie.vote_average.toString().take(3),
+                                    text = movie.voteAverage.toString().take(3),
                                     color = Color.LightGray,
                                     fontSize = MovieFontSize.small,
                                     maxLines = 1
@@ -200,7 +200,7 @@ fun MovieDetailsScreen(
 
                             Text(
                                 modifier = Modifier.padding(start = MoviePaddingValues.large),
-                                text = stringResource(R.string.language) + movie.original_language,
+                                text = stringResource(R.string.language) + movie.originalLanguage,
                                 color = Color.White
                             )
 
@@ -208,7 +208,7 @@ fun MovieDetailsScreen(
 
                             Text(
                                 modifier = Modifier.padding(start = MoviePaddingValues.large),
-                                text = stringResource(R.string.release_data) + movie.release_date,
+                                text = stringResource(R.string.release_data) + movie.releaseDate,
                                 color = Color.White
                             )
 
@@ -216,7 +216,7 @@ fun MovieDetailsScreen(
 
                             Text(
                                 modifier = Modifier.padding(start = MoviePaddingValues.large),
-                                text = "${movie.vote_count} Votes",
+                                text = "${movie.voteCount} Votes",
                                 color = Color.White
                             )
 

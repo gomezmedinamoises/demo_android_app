@@ -19,23 +19,23 @@ fun MovieDto.toMovieEntity(
 ): MovieEntity {
     return MovieEntity(
         adult = adult ?: false,
-        backdrop_path = backdrop_path ?: "",
-        original_language = original_language ?: "",
+        backdropPath = backdropPath ?: "",
+        originalLanguage = originalLanguage ?: "",
         overview = overview ?: "",
-        poster_path = poster_path ?: "",
-        release_date = release_date ?: "",
+        posterPath = posterPath ?: "",
+        releaseDate = releaseDate ?: "",
         title = title ?: "",
-        vote_average = vote_average ?: 0.0,
+        voteAverage = voteAverage ?: 0.0,
         popularity = popularity ?: 0.0,
-        vote_count = vote_count ?: 0,
+        voteCount = voteCount ?: 0,
         id = id ?: -1,
-        original_title = original_title ?: "",
+        originalTitle = originalTitle ?: "",
         video = video ?: false,
 
         category = category,
 
-        genre_ids = try {
-            genre_ids?.joinToString(",") ?: "-1,-2"
+        genreIds = try {
+            genreIds?.joinToString(",") ?: "-1,-2"
         } catch (e: Exception) {
             "-1,-2"
         }
@@ -52,24 +52,24 @@ fun MovieEntity.toMovie(
     category: String
 ): Movie {
     return Movie(
-        backdrop_path = backdrop_path,
-        original_language = original_language,
+        backdropPath = backdropPath,
+        originalLanguage = originalLanguage,
         overview = overview,
-        poster_path = poster_path,
-        release_date = release_date,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
         title = title,
-        vote_average = vote_average,
+        voteAverage = voteAverage,
         popularity = popularity,
-        vote_count = vote_count,
+        voteCount = voteCount,
         video = video,
         id = id,
         adult = adult,
-        original_title = original_title,
+        originalTitle = originalTitle,
 
         category = category,
 
-        genre_ids = try {
-            genre_ids.split(",").map { it.toInt() }
+        genreIds = try {
+            genreIds.split(",").map { it.toInt() }
         } catch (e: Exception) {
             listOf(-1, -2)
         }

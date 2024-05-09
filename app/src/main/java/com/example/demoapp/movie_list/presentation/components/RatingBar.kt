@@ -1,6 +1,5 @@
 package com.example.demoapp.movie_list.presentation.components
 
-import android.widget.RatingBar
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star

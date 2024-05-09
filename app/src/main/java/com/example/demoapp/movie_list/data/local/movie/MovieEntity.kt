@@ -1,11 +1,12 @@
 package com.example.demoapp.movie_list.data.local.movie
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
  * @author Moises David Gomez Medina
  */
-
+@Entity
 data class MovieEntity(
     val adult: Boolean?,
     val backdrop_path: String?,

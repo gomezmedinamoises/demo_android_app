@@ -1,4 +1,4 @@
-package com.example.demoapp.movie_list.presentation
+package com.example.demoapp.movie_list.presentation.home
 
 import com.example.demoapp.movie_list.domain.model.Movie
 

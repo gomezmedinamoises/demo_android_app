@@ -1,4 +1,4 @@
-package com.example.demoapp.movie_list.presentation.screens
+package com.example.demoapp.movie_list.presentation.home.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,8 +33,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.demoapp.R
-import com.example.demoapp.movie_list.presentation.MovieListUiEvent
-import com.example.demoapp.movie_list.presentation.MovieListViewModel
+import com.example.demoapp.movie_list.presentation.home.MovieListUiEvent
+import com.example.demoapp.movie_list.presentation.home.MovieListViewModel
 import com.example.demoapp.movie_list.utils.Screen
 
 /**

@@ -15,7 +15,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.demoapp.movie_list.presentation.screens.HomeScreen
+import com.example.demoapp.movie_list.presentation.details.MovieDetailsScreen
+import com.example.demoapp.movie_list.presentation.home.screens.HomeScreen
 import com.example.demoapp.movie_list.utils.Screen
 import com.example.demoapp.ui.theme.DemoAppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.onPrimary
                 ) {
                     val navController = rememberNavController()
                     NavHost(
@@ -46,8 +47,8 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(
                                 navArgument("movieId") {type = NavType.IntType}
                             )
-                        ) { backStackEntry ->
-                            //DetailsScreen(backStackEntry)
+                        ) {
+                            MovieDetailsScreen()
                         }
                     }
                 }

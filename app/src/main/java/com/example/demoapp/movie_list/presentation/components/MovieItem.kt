@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,7 +33,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
@@ -46,6 +44,11 @@ import com.example.demoapp.movie_list.domain.model.Movie
 import com.example.demoapp.movie_list.utils.RatingBar
 import com.example.demoapp.movie_list.utils.Screen
 import com.example.demoapp.movie_list.utils.getAverageColor
+import com.example.demoapp.ui.MovieFontSize
+import com.example.demoapp.ui.MovieIconSize
+import com.example.demoapp.ui.MoviePaddingValues
+import com.example.demoapp.ui.MovieRoundedCorner
+import com.example.demoapp.ui.MovieSpacerValues
 
 /**
  * @author Moises David Gomez Medina
@@ -71,8 +74,8 @@ fun MovieItem(
         modifier = Modifier
             .wrapContentHeight()
             .width(200.dp)
-            .padding(8.dp)
-            .clip(RoundedCornerShape(28.dp))
+            .padding(MoviePaddingValues.small)
+            .clip(RoundedCornerShape(MovieRoundedCorner.large))
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
@@ -89,14 +92,14 @@ fun MovieItem(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(6.dp)
+                    .padding(MoviePaddingValues.xSmall)
                     .height(250.dp)
-                    .clip(RoundedCornerShape(22.dp))
+                    .clip(RoundedCornerShape(MovieRoundedCorner.medium))
                     .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    modifier = Modifier.size(70.dp),
+                    modifier = Modifier.size(MovieIconSize.medium),
                     imageVector = Icons.Rounded.ImageNotSupported,
                     contentDescription = movie.title
                 )
@@ -111,29 +114,36 @@ fun MovieItem(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(6.dp)
+                    .padding(MoviePaddingValues.small)
                     .height(250.dp)
-                    .clip(RoundedCornerShape(22.dp)),
+                    .clip(RoundedCornerShape(MovieRoundedCorner.medium)),
                 painter = imageState.painter,
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop
             )
         }
 
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(MovieSpacerValues.xSmall))
 
         Text(
-            modifier = Modifier.padding(start = 16.dp, end = 8.dp),
+            modifier = Modifier.padding(
+                start = MoviePaddingValues.large,
+                end = MoviePaddingValues.small
+            ),
             text = movie.title,
             color = Color.White,
-            fontSize = 15.sp,
+            fontSize = MovieFontSize.medium,
             maxLines = 1
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, bottom = 12.dp, top = 4.dp)
+                .padding(
+                    start = MoviePaddingValues.large,
+                    bottom = MoviePaddingValues.medium,
+                    top = MoviePaddingValues.xSmall
+                )
         ) {
             RatingBar(
                 starsModifier = Modifier.size(18.dp),
@@ -141,10 +151,10 @@ fun MovieItem(
             )
 
             Text(
-                modifier = Modifier.padding(start = 4.dp),
+                modifier = Modifier.padding(MoviePaddingValues.xSmall),
                 text = movie.vote_average.toString().take(3),
                 color = Color.LightGray,
-                fontSize = 14.sp,
+                fontSize = MovieFontSize.medium,
                 maxLines = 1
             )
         }

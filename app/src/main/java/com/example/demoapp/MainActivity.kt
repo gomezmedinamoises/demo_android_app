@@ -10,14 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.demoapp.movie_list.presentation.details.MovieDetailsScreen
-import com.example.demoapp.movie_list.presentation.home.screens.HomeScreen
-import com.example.demoapp.movie_list.utils.Screen
+import com.example.demoapp.ui.AppNavigation
 import com.example.demoapp.ui.theme.DemoAppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,23 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.onPrimary
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.Home.route
-                    ) {
-                        composable(Screen.Home.route) {
-                            HomeScreen(navController)
-                        }
-                        composable(
-                            Screen.Details.route + "/{movieId}",
-                            arguments = listOf(
-                                navArgument("movieId") {type = NavType.IntType}
-                            )
-                        ) {
-                            MovieDetailsScreen()
-                        }
-                    }
+                    AppNavigation()
                 }
             }
         }

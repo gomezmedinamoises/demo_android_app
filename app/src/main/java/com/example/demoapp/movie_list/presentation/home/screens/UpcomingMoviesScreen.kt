@@ -17,6 +17,7 @@ import com.example.demoapp.movie_list.presentation.home.MovieListState
 import com.example.demoapp.movie_list.presentation.home.MovieListUiEvent
 import com.example.demoapp.movie_list.presentation.components.MovieItem
 import com.example.demoapp.movie_list.utils.Category
+import com.example.demoapp.ui.MoviePaddingValues
 
 /**
  * @author Moises David Gomez Medina
@@ -39,7 +40,10 @@ fun UpcomingMoviesScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 8.dp, horizontal = 4.dp)
+            contentPadding = PaddingValues(
+                vertical = MoviePaddingValues.small,
+                horizontal = MoviePaddingValues.xSmall
+            )
         ) {
             items(movieListState.upcomingMovieList.size) {index ->
                 MovieItem(

@@ -8,4 +8,6 @@
     <string name="release_data">"Release data: "</string>
     <string name="votes">" Votes"</string>
     <string name="overview">Overview</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="back">Back</string>
 </resources>

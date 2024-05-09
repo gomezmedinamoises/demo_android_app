@@ -16,10 +16,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.rounded.ImageNotSupported
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -31,9 +36,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -41,12 +45,20 @@ import coil.size.Size
 import com.example.demoapp.R
 import com.example.demoapp.movie_list.data.remote.MovieApi
 import com.example.demoapp.movie_list.utils.RatingBar
+import com.example.demoapp.ui.MovieFontSize
+import com.example.demoapp.ui.MovieIconSize
+import com.example.demoapp.ui.MoviePaddingValues
+import com.example.demoapp.ui.MovieRoundedCorner
+import com.example.demoapp.ui.MovieSpacerValues
 
 /**
  * @author Moises David Gomez Medina
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieDetailsScreen() {
+fun MovieDetailsScreen(
+    navController: NavController
+) {
 
     val movieDetailsViewModel = hiltViewModel<MovieDetailsViewModel>()
     val detailsState = movieDetailsViewModel.detailsState.collectAsState().value
@@ -65,161 +77,176 @@ fun MovieDetailsScreen() {
             .build()
     ).state
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
-        if (backDropImageState is AsyncImagePainter.State.Error) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    modifier = Modifier.size(70.dp),
-                    imageVector = Icons.Rounded.ImageNotSupported,
-                    contentDescription = detailsState.movie?.title
-                )
-            }
-        }
-
-        if (backDropImageState is AsyncImagePainter.State.Success) {
-
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp),
-                painter = backDropImageState.painter,
-                contentDescription = detailsState.movie?.title,
-                contentScale = ContentScale.Crop
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(stringResource(R.string.movie_details)) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                    }
+                }
             )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Box(
+        },
+        content = { paddingValues ->
+            Column(
                 modifier = Modifier
-                    .width(160.dp)
-                    .height(240.dp)
+                    .padding(paddingValues)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
-                if (posterImageState is AsyncImagePainter.State.Error) {
+                if (backDropImageState is AsyncImagePainter.State.Error) {
                     Box(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(8.dp))
+                            .fillMaxWidth()
+                            .height(220.dp)
                             .background(MaterialTheme.colorScheme.primaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            modifier = Modifier.size(70.dp),
+                            modifier = Modifier.size(MovieIconSize.medium),
                             imageVector = Icons.Rounded.ImageNotSupported,
                             contentDescription = detailsState.movie?.title
                         )
                     }
                 }
 
-                if (posterImageState is AsyncImagePainter.State.Success) {
+                if (backDropImageState is AsyncImagePainter.State.Success) {
 
                     Image(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(12.dp)),
-                        painter = posterImageState.painter,
+                            .fillMaxWidth()
+                            .height(220.dp),
+                        painter = backDropImageState.painter,
                         contentDescription = detailsState.movie?.title,
                         contentScale = ContentScale.Crop
                     )
                 }
-            }
 
-                detailsState.movie?.let {movie ->
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
+                Spacer(modifier = Modifier.height(MovieSpacerValues.medium))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(MoviePaddingValues.large)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .width(160.dp)
+                            .height(240.dp)
                     ) {
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = movie.title,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White
-                        )
-                        
-                        Spacer(modifier = Modifier.height(16.dp))
+                        if (posterImageState is AsyncImagePainter.State.Error) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(MovieRoundedCorner.xSmall))
+                                    .background(MaterialTheme.colorScheme.primaryContainer),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    modifier = Modifier.size(MovieIconSize.medium),
+                                    imageVector = Icons.Rounded.ImageNotSupported,
+                                    contentDescription = detailsState.movie?.title
+                                )
+                            }
+                        }
 
-                        Row(
-                            modifier = Modifier
-                                .padding(start = 16.dp)
-                        ) {
-                            RatingBar(
-                                starsModifier = Modifier.size(18.dp),
-                                rating = movie.vote_average / 2
-                            )
+                        if (posterImageState is AsyncImagePainter.State.Success) {
 
-                            Text(
-                                modifier = Modifier.padding(start = 4.dp),
-                                text = movie.vote_average.toString().take(3),
-                                color = Color.LightGray,
-                                fontSize = 14.sp,
-                                maxLines = 1
+                            Image(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(RoundedCornerShape(MovieRoundedCorner.small)),
+                                painter = posterImageState.painter,
+                                contentDescription = detailsState.movie?.title,
+                                contentScale = ContentScale.Crop
                             )
                         }
-                        
-                        Spacer(modifier = Modifier.height(12.dp))
+                    }
 
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = stringResource(R.string.language) + movie.original_language,
-                            color = Color.White
-                        )
+                    detailsState.movie?.let { movie ->
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(start = MoviePaddingValues.large),
+                                text = movie.title,
+                                fontSize = MovieFontSize.large,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.White
+                            )
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                            Spacer(modifier = Modifier.height(MovieSpacerValues.medium))
 
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = stringResource(R.string.release_data) + movie.release_date,
-                            color = Color.White
-                        )
+                            Row(
+                                modifier = Modifier
+                                    .padding(start = MoviePaddingValues.large)
+                            ) {
+                                RatingBar(
+                                    starsModifier = Modifier.size(MoviePaddingValues.xLarge),
+                                    rating = movie.vote_average / 2
+                                )
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    modifier = Modifier.padding(start = MoviePaddingValues.xSmall),
+                                    text = movie.vote_average.toString().take(3),
+                                    color = Color.LightGray,
+                                    fontSize = MovieFontSize.small,
+                                    maxLines = 1
+                                )
+                            }
 
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = "${movie.vote_count} Votes",
-                            color = Color.White
-                        )
+                            Spacer(modifier = Modifier.height(MovieSpacerValues.small))
 
+                            Text(
+                                modifier = Modifier.padding(start = MoviePaddingValues.large),
+                                text = stringResource(R.string.language) + movie.original_language,
+                                color = Color.White
+                            )
+
+                            Spacer(modifier = Modifier.height(MovieSpacerValues.small))
+
+                            Text(
+                                modifier = Modifier.padding(start = MoviePaddingValues.large),
+                                text = stringResource(R.string.release_data) + movie.release_date,
+                                color = Color.White
+                            )
+
+                            Spacer(modifier = Modifier.height(MovieSpacerValues.small))
+
+                            Text(
+                                modifier = Modifier.padding(start = MoviePaddingValues.large),
+                                text = "${movie.vote_count} Votes",
+                                color = Color.White
+                            )
+
+                        }
+                    }
                 }
+
+                Spacer(modifier = Modifier.height(MovieSpacerValues.large))
+
+                Text(
+                    modifier = Modifier.padding(start = MoviePaddingValues.large),
+                    text = stringResource(R.string.overview),
+                    fontSize = MovieFontSize.large,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.height(MovieSpacerValues.xSmall))
+
+                detailsState.movie?.let {
+                    Text(
+                        modifier = Modifier.padding(start = MoviePaddingValues.large),
+                        text = it.overview,
+                        fontSize = MovieFontSize.medium,
+                        color = Color.White
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(MovieSpacerValues.large))
             }
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Text(
-            modifier = Modifier.padding(start = 16.dp),
-            text = stringResource(R.string.overview),
-            fontSize = 19.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        detailsState.movie?.let {
-            Text(
-                modifier = Modifier.padding(start = 16.dp),
-                text = it.overview,
-                fontSize = 16.sp,
-                color = Color.White
-            )
-        }
-
-        Spacer(modifier = Modifier.height(32.dp))
-    }
+    )
 }

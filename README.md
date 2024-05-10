@@ -14,6 +14,8 @@ Demo Android App
 ## About The App
 Demo Android App was built to explore JetpackCompose. The main purpose is to display a list of popular and upcoming movies. Also, allows to navigate into a screen with movie details. In order to do that, was used a public API called The Movie Database (TMDB).
 
+Important: this project is Java 17 based.
+
 ## Screenshots
 
 ![movies-demo-app-screenshot-1](https://github.com/gomezmedinamoises/demo_android_app/assets/82466219/544be6f8-be30-464e-9f11-5a988297dda0)
